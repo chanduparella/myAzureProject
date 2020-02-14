@@ -1,0 +1,68 @@
+<project name="Sample build for migration tool" default="deploy" basedir=".." xmlns:sf="antlib:com.salesforce">
+	<description>Sample example build file</description>
+	<!--Define properties files-->
+	<property file="build.properties"/>
+	<property environment="env"/>
+	<property name="ant.jar" value="ant-salesforce.jar"/>
+	
+	<property name="sf.username" value="${salesforce.username}"/>
+	<property name="sf.password" value="${salesforce.password}"/>
+	<property name="sf.serverurl" value="${salesforce.serverurl}"/>
+   <property name="sf.testlevel" value="${salesforce.testlevel}"/>
+	
+	<!--Define the class path where all jar files resides-->
+	<path id="classpath">
+	<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
+	
+	<!--Define the Taskdef for salesforce ant migration tool-->
+	<!-- <taskdef uri="antlib:com.salesforce"
+	resource="com/salesforce/antlib.xml"
+	classpath="${basedir}/../migration_tool/lib/ant-salesforce.jar"/> -->
+	
+	<taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
+	<classpath> 
+	<pathelement location="${ant.jar}"/>
+	</classpath>
+	</taskdef>
+
+
+	<target name="retrieve" depends="info">
+		<mkdir dir="../src">
+		<!--Retrieve the contents into another directory-->
+		<sf:retrieve
+			retrieveTarget="../src"
+			username="${sf.username}"
+			password="${sf.password}"
+			serverurl="${sfdc.serverurl}"
+			unpackaged="./package.xml"
+			maxPoll="${sf.maxPoll}"/>
+	</target>
+
+	<target name="deployCheckOnly" depends="info">
+		<sf:deploy
+			username="${sf.username}"
+			password="${sf.password}"
+			serverurl="${sfdc.serverurl}"
+			deployRoot="../src"
+			maxPoll="${sf.maxPoll}"
+			rollbackonerror="true"
+			checkOnly="true"/>
+	</target>
+
+	<target name="deploy" depends="info">
+		<sf:deploy
+			checkOnly="true"
+			username="${sf.username}"
+			password="${sfdc.password}"
+			serverurl="${sfdc.serverurl}"
+			deployRoot="../src"
+			maxPoll="${sfdc.maxPoll}"
+			rollbackonerror="true"
+		</sf:deploy>
+	</target>
+	<target name="info">
+	<echo message="UserName=>${sf.username},testlevel=>${sf.testlevel},serverurl=>${sfdc.serverurl}>
+	</target>
+	
+</project>

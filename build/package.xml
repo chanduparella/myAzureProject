@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+         <members>Integration_Log__c</members>
+		 <members>OCR_Review__c</members>
+		 <members>API_Configuration__c</members>
+		  <members>Ocr_Reviewer_Mapping__c</members>
+        <name>CustomObject</name>
+    </types>
+	<types>
+         <members>OCRServiceController</members>
+		 <members>AutopopulatePages_V1</members>
+        <name>ApexClass</name>
+    </types>
+	<types>
+         <members>IntegrationLogTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+	<types>
+         <members>API Configurations</members>
+        <name>CustomTab</name>
+    </types>
+	<types>
+         <members>Case.OCR_Processed__c</members>
+		  <members>Case.Number_of_pages__c</members>
+		   <members>Case.No_of_templates_processed__c</members>
+		    <members>Case.Rejected_Pages__c</members>
+			 <members>Case.Reviewed_By__c</members>
+			 <members>Case.OCR_File_Name__c</members>
+			 <members>Case.S3_Path__c</members>
+        <name>CustomField</name>
+    </types>
+    <version>45.0</version>
+</Package>
